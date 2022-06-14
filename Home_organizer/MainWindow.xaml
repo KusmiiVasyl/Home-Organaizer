@@ -1,0 +1,46 @@
+﻿<Window x:Class="Home_organizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Home_organizer"
+        mc:Ignorable="d"    
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Home_Organizer" MinHeight="700" MinWidth="1200" Height="1000" Width="1600" WindowStartupLocation="CenterScreen" Icon="Images_icons/Icon_1.PNG" Loaded="Window_Loaded">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard TargetProperty="Width" TargetName="enterButton">
+                        <DoubleAnimation From="370" To="450"
+                                         AutoReverse="True"
+                                         RepeatBehavior="Forever"
+                                         Duration="0:0:1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+    <Canvas Grid.ColumnSpan="2" Margin="0,0,0.334,-0.333" >
+        <Canvas.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Image  Source="Pictures/Picture_1.png" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Canvas.Background>
+        <Border Background="DarkGray" Opacity="0.70" VerticalAlignment="Center" Padding="20" CornerRadius="20"  MaxHeight="500" MaxWidth="600" Canvas.Left="113" Canvas.Top="215" Width="568">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="50" Color="#243942" ShadowDepth="0"/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Вхід в програму" FontSize="30" Foreground="#FF2C2B2B" FontWeight="Bold" Margin="0 0 0 50" FontStyle="Italic"/>
+                <TextBox x:Name="textBoxLogin" materialDesign:HintAssist.Hint="Введіть логін" Foreground="#FF7E2A00" FontSize="20" Height="70" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  />
+                <PasswordBox x:Name="passBox" materialDesign:HintAssist.Hint="Введіть пароль" Foreground="#FF7E2A00" FontSize="20" Margin="0,10,0,10" Height="70" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+
+                <Button Content="Увійти" x:Name="enterButton" FontSize="24" Margin="0,20,0.333,20"  Height="52" Background="#FF76727E" Foreground="DarkOrange" FontStyle="Italic" BorderBrush="#FF171719" Click="Button_EnterToProgram_Click"/>
+                <Button Content="Реєстрація" FontSize="24" FontStyle="Italic" Margin="80,5,80,0" Background="#FF76727E" Foreground="DarkOrange" Height="45" BorderBrush="#FF171719" Click="Button_Reg_Click"/>
+            </StackPanel>
+        </Border>
+    </Canvas>
+</Window>

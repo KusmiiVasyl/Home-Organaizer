@@ -1,0 +1,867 @@
+﻿<Window x:Class="Home_organizer.ProgramWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Home_organizer"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Home_Organizer" MinHeight="1000" MinWidth="1600" Height="1200" Width="1600" WindowStartupLocation="CenterScreen" Icon="Images_icons/Icon_1.PNG" Loaded="Window_Loaded"  >
+
+
+    <TabControl TabStripPlacement="Left" Style="{StaticResource MaterialDesignNavigatilRailTabControl}" >
+        <TabItem  FontSize="36" Width="228">
+            <TabItem.Header>
+                <Grid Width="207" RenderTransformOrigin="0.392,0.489">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Kind="Note" Height="40" Width="57" />
+                    <TextBlock Text="Список справ" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic" />
+                </Grid>
+            </TabItem.Header>
+            <DockPanel x:Name="dockPanel_Task" Background="DarkCyan">
+                <ScrollViewer CanContentScroll="False">
+                    <DataGrid x:Name="dataGrid_Tasks" FontSize="16" FontWeight="DemiBold" Margin="10" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=StrTimeSet}" Header="Дата створення" Width="170"/>
+                            <DataGridTemplateColumn  IsReadOnly="False"  Header="Дата виконання" Width="220">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker DisplayDateStart="{x:Static sys:DateTime.Now}" Language="uk" SelectedDate="{Binding Path=DateToDo}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridCheckBoxColumn x:Name="cbIsDone" Binding="{Binding Path=IsDone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="50">
+                                <DataGridCheckBoxColumn.Header>
+                                    <materialDesign:PackIcon Kind="Check"/>
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
+                            <DataGridTextColumn x:Name="header_Task" IsReadOnly="False" Binding="{Binding Path=Text}" Header="Список справ" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </DockPanel>
+        </TabItem>
+        <TabItem  FontSize="36" Width="228">
+            <TabItem.Header>
+                <Grid Width="207" RenderTransformOrigin="0.392,0.489">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Kind="Home" Height="40" Width="57"  />
+                    <TextBlock Text="Комунальні" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic" />
+                </Grid>
+            </TabItem.Header>
+            <TabControl TabStripPlacement="Top" Background="#FF303030" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+                <TabItem  Header="Розрахунок" Margin="20,0,20,0" Width="100">
+                    <ScrollViewer Background="#FF303030" CanContentScroll="False">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Адрес:" Margin="10,5,5,5" Foreground="Cyan" FontWeight="Bold" FontFamily="Segoe Script" FontSize="22"/>
+                                <TextBox x:Name="address_TextBox" Grid.Column="1" Foreground="Cyan" FontWeight="Bold" FontFamily="Segoe Script" FontSize="22"/>
+                            </Grid>
+                            <Grid Background="#FF303030">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100*" />
+                                    <RowDefinition Height="100*" />
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel >
+                                    <Grid x:Name="gridCount">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="174.667"/>
+                                            <ColumnDefinition Width="75.333"/>
+                                            <ColumnDefinition Width="267"/>
+                                            <ColumnDefinition Width="107*"/>
+                                            <ColumnDefinition Width="724*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox x:Name="comboBoxMonth" SelectionChanged="comboBoxMonth_SelectionChanged" Width="200" FontSize="18" HorizontalAlignment="Left" Margin="30,5,0,4.667" Background="Beige" Foreground="DarkCyan" FontWeight="Bold" FontFamily="Segoe Script" FontStyle="Italic" IsEditable="True" BorderBrush="DarkCyan" BorderThickness="2" Grid.ColumnSpan="2" >
+                                            <ComboBoxItem Content="січень"  Background="Beige"/>
+                                            <ComboBoxItem Content="лютий"  Background="Beige"/>
+                                            <ComboBoxItem Content="березень"  Background="Beige"/>
+                                            <ComboBoxItem Content="квітень"  Background="Beige"/>
+                                            <ComboBoxItem Content="травень"  Background="Beige"/>
+                                            <ComboBoxItem Content="червень"  Background="Beige"/>
+                                            <ComboBoxItem Content="липень"  Background="Beige"/>
+                                            <ComboBoxItem Content="серпень"  Background="Beige"/>
+                                            <ComboBoxItem Content="вересень"  Background="Beige"/>
+                                            <ComboBoxItem Content="жовтень"  Background="Beige"/>
+                                            <ComboBoxItem Content="листопад"  Background="Beige"/>
+                                            <ComboBoxItem Content="грудень"  Background="Beige"/>
+                                        </ComboBox>
+                                        <ComboBox x:Name="comboBoxYear" SelectionChanged="comboBoxYear_SelectionChanged"  Width="160" Grid.Column="2" FontSize="18" HorizontalAlignment="Left" Margin="5,5,0,4.667" Background="Beige" Foreground="DarkCyan" FontWeight="Bold" FontFamily="Segoe Script" FontStyle="Italic" IsEditable="True" BorderBrush="DarkCyan" BorderThickness="2" />
+                                        <Button Grid.Column="4" Height="40" Click="ToCount_Button_Click" HorizontalAlignment="Right" Margin="0,5,400,5.667" Background="DarkCyan">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <materialDesign:PackIcon Kind="Autorenew" Foreground="#FFEBE2CA" Height="35" Width="30"/>
+                                                    <TextBlock Grid.Column="1" Text="Розрахувати" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FFEBE2CA" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="saveCount_Button" Click="SaveCount_Button_Click" IsEnabled="False" Grid.Column="4" Height="40" HorizontalAlignment="Right" Margin="0,5,130,5.667" Background="DarkCyan">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <materialDesign:PackIcon Kind="ContentSave" Foreground="#FFEBE2CA" Height="35" Width="30"/>
+                                                    <TextBlock Grid.Column="1" Text="Зберегти розрахунок" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FFEBE2CA" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="deleteCount_Button" Click="DeleteCount_ButtonClick" Grid.Column="4" Height="40" HorizontalAlignment="Right" Margin="0,5,20,5.667" Background="#FF303030">
+                                            <StackPanel>
+                                                <materialDesign:PackIcon Kind="TrashCan" Foreground="Red" Height="35" Width="35"/>
+                                            </StackPanel>
+                                            <Button.ToolTip>
+                                                <TextBlock Text="Видалити послідній рохрахунок" FontSize="20" Background="#FF303030" Foreground="Red"/>
+                                            </Button.ToolTip>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                                <Border Grid.Row="1"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Water" Foreground="Blue" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Водопостачання" Foreground="#DD0518E6"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="waterSupplyTarif" Text="0.00"  FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180">
+                                            <TextBox x:Name="prevWaterSupply" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="попередній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="curentWaterSupply" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="теперішній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5">
+                                            <TextBlock x:Name="different_WaterSupply" Text="0" FontWeight="Bold" FontSize="32" Margin="0,5,0,0" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="різниця, м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_WaterSupply" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="2"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Water" Foreground="Blue" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Водовідведення" Foreground="#DD0518E6"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="drainageTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180">
+                                            <TextBox x:Name="prevDrainage" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="попередній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="curentDrainage" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="теперішній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5">
+                                            <TextBlock x:Name="different_Drainage" Text="0" FontWeight="Bold" FontSize="32" Margin="0,5,0,0" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="різниця, м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Drainage"  Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="3"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Gas" Foreground="DarkOrange" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Природний газ" Foreground="DarkOrange"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="gasTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180">
+                                            <TextBox x:Name="prevGas" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="попередній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="curentGas" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="теперішній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5">
+                                            <TextBlock x:Name="different_Gas" Text="0" FontWeight="Bold" FontSize="32" Margin="0,5,0,0" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="різниця, м3" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Gas" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="4"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="PipeValve" Foreground="DarkOrange" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Доставка газу" Foreground="DarkOrange"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="deliveryGasTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="deliveryGasSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_DeliveryGas" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="5"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Lightbulb" Foreground="DarkGoldenrod" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Електроенергія" Foreground="DarkGoldenrod"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="electricTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/кВат" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180">
+                                            <TextBox x:Name="prevElectric" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="попередній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="curentElectric" KeyDown="ChangeIndicator_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="теперішній показник" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5">
+                                            <TextBlock x:Name="different_Electric" Text="0" FontWeight="Bold" FontSize="32" Margin="0,5,0,0" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="різниця, кВат" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Electric" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="6"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Home" Foreground="Brown" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Квартплата" Foreground="Brown"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="rentTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="rentSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Rent" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="7"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Guardian" Foreground="Green" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Охорона" Foreground="Green"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="protectionTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="protectionSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Protection" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="8"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="GarbageCan" Foreground="Red" Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Вивіз сміття" Foreground="Red"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="garbageTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="garbageSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Garbage" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="9"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="PhoneRing" Foreground="Chocolate"  Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Домофон" Foreground="Chocolate"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="intercomTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="intercomSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Intercom" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="10"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="324*"/>
+                                            <ColumnDefinition Width="167*"/>
+                                            <ColumnDefinition Width="181*"/>
+                                            <ColumnDefinition Width="202*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Internet" Foreground="DarkSlateGray"  Grid.Column="0" MinHeight="80"  MinWidth="80" Height="80" Width="80" />
+                                        <Label Grid.Column="1" Content="Інтернет" Foreground="DarkSlateGray"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="internetTarif" Text="0,00" FontSize="32" Margin="0,5,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                            <Label Content="тариф, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Width="180"/>
+                                        <StackPanel Grid.Column="4" Width="180"  >
+                                            <TextBox x:Name="internetSum" KeyDown="ChangeTarif_KeyDown" Margin="8,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="14" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                            <Label Content="сума, грн/м-ць" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" FontWeight="Bold" Margin="0,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="5"/>
+                                        <StackPanel Grid.Column="6">
+                                            <TextBlock x:Name="sum_Internet" Text="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="32" Margin="0,5,0,0" Foreground="DarkCyan"/>
+                                            <Label Content="сума, грн" FontStyle="Italic" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <StackPanel Grid.Row="11" Background="#FF303030">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="900*"/>
+                                            <ColumnDefinition Width="191*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Загальна сума, грн." Foreground="Beige" HorizontalAlignment="Right" FontWeight="Bold" FontStyle="Italic" FontFamily="Monotype Corsiva" FontSize="48"/>
+                                        <TextBlock x:Name="sum_Total" Grid.Column="1" Text="0.00" Foreground="Beige" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontFamily="Monotype Corsiva" FontSize="48"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Змінити тариф"  Margin="20,0,20,0" Width="150">
+                    <StackPanel Background="#FF303030">
+                        <Menu Height="46" Background="DarkCyan" Style="{StaticResource MaterialDesignMenu}">
+                            <MenuItem Click="SaveTarif_MenuItem_Click" Height="38" Margin="80,2,10,2" BorderThickness="3" BorderBrush="AliceBlue">
+                                <MenuItem.Header>
+                                    <materialDesign:PackIcon Kind="ContentSave" Foreground="#FFEBE2CA" Height="35" Width="40"  VerticalAlignment="Center" ToolTip="Зберегти дані"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </Menu>
+                        <Grid Background="#FF303030">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="#FF303030"  BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Останній" FontSize="18"  FontWeight="Bold" HorizontalAlignment="Center" Foreground="Beige"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBlock Text="Теперішній" FontSize="18"  FontWeight="Bold" HorizontalAlignment="Center" Foreground="Beige"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="1" Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Water" Foreground="Blue" Margin="5,5" Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Водопостачання" Margin="0,6"  FontSize="20" Foreground="#DD0518E6"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock x:Name="tar_waterSupplyTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м3" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_waterSupplyTarif" KeyDown="ChangeTarif_KeyDown" FontSize="14" Foreground="DarkCyan" Margin="0,8,8,0" Height="35" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="2"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Water" Foreground="Blue" Margin="5,5" Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Водовідведення" Margin="0,6"  FontSize="20" Foreground="#DD0518E6"  FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_drainageTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м3" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_drainageTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="3"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Gas" Foreground="DarkOrange" Margin="5,5" Grid.Column="0" Height="40"  Width="40"/>
+                                    <Label Grid.Column="1" Content="Природний газ" Foreground="DarkOrange" Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_gasTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м3" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_gasTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="4"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="PipeValve" Foreground="DarkOrange" Margin="5,5" Grid.Column="0" Height="40"  Width="40"/>
+                                    <Label Grid.Column="1" Content="Доставка газу" Foreground="DarkOrange"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_deliveryGasTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_deliveryGasTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="5"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Lightbulb" Foreground="DarkGoldenrod" Margin="5,5" Grid.Column="0" Height="40"  Width="40"/>
+                                    <Label Grid.Column="1" Content="Електроенергія" Foreground="DarkGoldenrod"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_electricTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/кВат" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_electricTarif" KeyDown="ChangeTarif_KeyDown"  Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="6"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Home" Foreground="Brown" Margin="5,5" Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Квартплата" Foreground="Brown"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_rentTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_rentTarif" KeyDown="ChangeTarif_KeyDown"  Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="7"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Guardian" Foreground="Green" Margin="5,5" Grid.Column="0" Height="40"  Width="40"/>
+                                    <Label Grid.Column="1" Content="Охорона" Foreground="Green"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_protectionTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_protectionTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="8"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="GarbageCan" Foreground="Red" Margin="5,5" Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Вивіз сміття" Foreground="Red"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_garbageTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_garbageTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="9"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="PhoneRing" Foreground="Chocolate" Margin="5,5"  Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Домофон" Foreground="Chocolate"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_intercomTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_intercomTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="10"  Background="Beige" Margin="10,2" CornerRadius="20" BorderBrush="DarkCyan" BorderThickness="4" Width="600">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="Internet" Foreground="DarkSlateGray" Margin="5,5"  Grid.Column="0" Height="40"  Width="40" />
+                                    <Label Grid.Column="1" Content="Інтернет" Foreground="DarkSlateGray"  Margin="0,6"  FontSize="20" FontStyle="Italic" FontWeight="Bold" Height="56"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock  x:Name="tar_internetTarif" FontSize="20" Margin="0,12,0,0" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="грн/м-ць" FontSize="16" Margin="0,15,0,0" FontWeight="Bold" HorizontalAlignment="Left" Foreground="DarkCyan"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Width="130">
+                                        <TextBox x:Name="currentTar_internetTarif" KeyDown="ChangeTarif_KeyDown" Margin="0,8,8,0" Height="35" Foreground="DarkCyan" Background="White" BorderBrush="DarkCyan" BorderThickness="4" FontSize="16" FontWeight="Bold" MaxLength="8" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Подивитись оплати" Margin="20,0,20,0" Width="150" >
+                    <ScrollViewer CanContentScroll="False">
+                        <StackPanel >
+                            <Border Height="100" VerticalAlignment="Top" Background="DarkCyan">
+                                <Grid x:Name="gridCommunal">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <RadioButton GroupName="Communal" Content="Остання" Checked="LastCount_RadioButton_Checked" FontSize="20" FontWeight="Bold" Margin="15,0,0,0"/>
+                                    <RadioButton GroupName="Communal" Content="Перша" Checked="FirstCount_RadioButton_Checked" Grid.Row="1" FontSize="20" FontWeight="Bold" Margin="15,0,0,0"/>
+                                    <RadioButton GroupName="Communal" Content="За місяць" Checked="MonthCount_RadioButton_Checked" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="15,0,0,0"/>
+                                    <RadioButton GroupName="Communal" Content="Період" Checked="PeriodCount_RadioButton_Checked" Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="Bold" Margin="15,0,0,0"/>
+                                    <Button x:Name="showCount_Button" Click="showCount_Button_Click" Grid.Column="5" Height="40" Visibility="Hidden" HorizontalAlignment="Left" Margin="5" Background="DarkCyan">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Kind="FileEyeOutline" Foreground="#FFEBE2CA" Height="35" Width="30"/>
+                                                <TextBlock Grid.Column="1" Text="Показати" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FFEBE2CA" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                    <ComboBox x:Name="tmpComboBoxMonth_1" SelectionChanged="tmpComboBoxMonth_1_SelectionChanged" Visibility="Hidden"/>
+                                    <ComboBox x:Name="tmpComboBoxYear_1" Visibility="Hidden" SelectionChanged="tmpComboBoxYear_1_SelectionChanged"/>
+                                    <ComboBox x:Name="tmpComboBoxMonth_2" Visibility="Hidden" SelectionChanged="tmpComboBoxMonth_2_SelectionChanged"/>
+                                    <ComboBox x:Name="tmpComboBoxYear_2" Visibility="Hidden" SelectionChanged="tmpComboBoxYear_2_SelectionChanged"/>
+                                </Grid>
+                            </Border>
+                            <StackPanel>
+                                <Button x:Name="save_Button" Click="save_Button_Click" Grid.Row="2" Height="40" Visibility="Visible" HorizontalAlignment="Left" Margin="5" Background="DarkCyan">
+                                    <StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon Kind="ContentSaveAll" Foreground="#FFEBE2CA" Height="35" Width="30"/>
+                                            <TextBlock Grid.Column="1" Text="Зберегти дані у файл" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FFEBE2CA" />
+                                        </Grid>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <Grid Background="DarkCyan">
+                                <Border Margin="5" Background="#FF303030" CornerRadius="15"  >
+                                    <FlowDocumentScrollViewer x:Name="flowDoc">
+                                        <FlowDocument/>
+                                    </FlowDocumentScrollViewer>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Подивитись споживання" Margin="20,0,20,0" Width="200">
+                    <DockPanel Margin="10">
+                        <TextBox DockPanel.Dock="Top" FontSize="24" Margin="0,0,0,10" Name="txtFilter" TextChanged="txtFilter_TextChanged" />
+                        <ListView Name="lvUsers" Foreground="DarkOrange" FontSize="20" >
+                            <ListView.View >
+                                <GridView>
+                                    <GridViewColumn  Width="200"  DisplayMemberBinding="{Binding Period}">
+                                        <GridViewColumn.Header >
+                                            <TextBlock Text="Період" FontSize="16" Foreground="Cyan" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="250"  DisplayMemberBinding="{Binding GasDifferent}">
+                                        <GridViewColumn.Header >
+                                            <TextBlock Text="Природний газ, м3/м-ць" FontSize="16" Foreground="Cyan"/>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="270"  DisplayMemberBinding="{Binding ElectricDifferent}">
+                                        <GridViewColumn.Header >
+                                            <TextBlock Text="Електроенергія, кВат/м-ць" FontSize="16" Foreground="Cyan"/>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="260"  DisplayMemberBinding="{Binding WaterSupplyDifferent}">
+                                        <GridViewColumn.Header >
+                                            <TextBlock Text="Водопостачання, м3/м-ць" FontSize="16" Foreground="Cyan"/>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="260"  DisplayMemberBinding="{Binding DrainageDifferent}">
+                                        <GridViewColumn.Header >
+                                            <TextBlock Text="Водовідведення, м3/м-ць" FontSize="16" Foreground="Cyan"/>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </TabItem>
+
+        <TabItem Width="183" Height="100" >
+            <TabItem.Header>
+                <Button  Width="183" Height="100" Click="Calc_Button_Cklick"  HorizontalAlignment="Left" Background="#FF303030">
+                    <Grid Width="183">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="Calculator" Foreground="Orange" Height="35" Width="30"/>
+                        <TextBlock Grid.Column="1" Text="Калькулятор" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" FontStyle="Italic" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Orange" />
+                    </Grid>
+                </Button>
+            </TabItem.Header>
+            <Grid Opacity="0.5">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Images_icons/image2.jpg"/>
+                </Grid.Background>
+            </Grid>
+
+        </TabItem>
+    </TabControl>
+
+
+</Window>
